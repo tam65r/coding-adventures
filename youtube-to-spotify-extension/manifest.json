@@ -1,0 +1,29 @@
+{
+    "name": "Youtube to Spotify",
+    "version": "1.0.0",
+    "description": "This is an extension to automatically add a youtube music to your Spotify",
+    "manifest_version": 3,
+    "background": {
+        "scripts": [
+        "api_calls.js",
+        "oauth.js"
+        ]
+    },
+    "permissions": [
+        "storage",
+        "scripting",
+        "activeTab",
+        "tabs",
+        "webRequest",
+        "webRequestBlocking"
+    ],
+    "icons": {
+        "48": "icon.png"
+      },
+
+    "author": "Tiago Ribeiro",
+    "action": {
+        "default_popup": "index.html",
+        "default_title": "Youtube To Spotify"
+    }
+}
