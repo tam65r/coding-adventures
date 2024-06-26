@@ -1,5 +1,5 @@
-const client_id = "5519a73f3de5485c80c9269ae0b3a419";
-const client_secret = "ab7e20529ca64ca28f29a5527812492f";
+const client_id = "";
+const client_secret = "";
 
 const redirect_uri = "https://open.spotify.com/";
 
