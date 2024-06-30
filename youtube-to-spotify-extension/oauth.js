@@ -86,7 +86,7 @@ function refreshAccessToken() {
 
 function callApi(method, url, body, callback) {
     const access_token = localStorage.getItem("access_token");
-
+    console.log(url + JSON.stringify(body));
     let xhr = new XMLHttpRequest();
     xhr.open(method, url, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -131,4 +131,37 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     document.getElementById('login').addEventListener('click', requestAuthorization);
     document.getElementById('get-active-tab').addEventListener('click', retrieveActiveTab);
+    document.getElementById('test-button').addEventListener('click', test);
 });
+
+function test() {
+    const htmlElement = {
+        "html": "<iframe style=\"border-radius: 12px\" width=\"100%\" height=\"152\" title=\"Spotify Embed: Starlight (feat. Myles Kennedy)\" frameborder=\"0\" allowfullscreen allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\" src=\"https://open.spotify.com/embed/track/2t9s7ClOA37D8VIymaB5R5?utm_source=oembed\"></iframe>",
+        "width": 456,
+        "height": 152,
+        "version": "1.0",
+        "provider_name": "Spotify",
+        "provider_url": "https://spotify.com",
+        "type": "rich",
+        "title": "Starlight (feat. Myles Kennedy)",
+        "thumbnail_url": "https://i.scdn.co/image/ab67616d00001e0216172059bb4024f4a1d9b99a",
+        "thumbnail_width": 300,
+        "thumbnail_height": 300,
+        "iframe_url": "https://open.spotify.com/embed/track/2t9s7ClOA37D8VIymaB5R5?utm_source=oembed"
+      }
+
+      const iframe = document.createElement('iframe');
+      iframe.style.borderRadius = "12px";
+      iframe.width = "100%";  
+      iframe.height = htmlElement.height;
+      iframe.title = `Spotify Embed: ${htmlElement.title}`;
+      iframe.frameBorder = "0";
+      iframe.allowFullscreen = true;
+      iframe.allow = "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
+      iframe.loading = "lazy";
+      iframe.src = htmlElement.iframe_url;
+      
+      // Add the iframe to the div
+      document.getElementById('main-div').appendChild(iframe);
+    
+}

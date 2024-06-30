@@ -8,10 +8,19 @@
   
 }
 
+.container > * {
+  margin-top: 10px;
+}
+
+.container :last-child {
+  margin-top: 20px;
+}
+
 body {
   width: 300px; 
   height: 400px; 
   padding: 20px; 
+  background-color: rgb(86, 72, 105);
 }
 
 .button-56 {
