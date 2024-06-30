@@ -6,7 +6,8 @@
     "background": {
         "scripts": [
         "api_calls.js",
-        "oauth.js"
+        "oauth.js",
+        "scripts/utils.js"
         ]
     },
     "permissions": [
@@ -23,7 +24,7 @@
 
     "author": "Tiago Ribeiro",
     "action": {
-        "default_popup": "index.html",
+        "default_popup": "popup.html",
         "default_title": "Youtube To Spotify"
     }
 }
