@@ -12,3 +12,5 @@ const videoTitle = extractYouTubeVideoTitle();
 browser.runtime.sendMessage({
     title: videoTitle
 });
+
+location.reload();
