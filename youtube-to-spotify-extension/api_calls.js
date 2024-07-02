@@ -21,17 +21,18 @@ async function addTrackToPlaylist(track) {
       "uris": [track.uri]
     };
   
-    console.log("ADD track id " + playlistId);
-  
-    makeFetchRequest(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`,"POST",body)
-        .then(({status, result}) => {
-            if (status == 201) {
-                console.log(JSON.stringify(result));
-            } else if (status == 401) {
-                console.log("VALIDA O TOKEND E ACESSO");
-            }
-        })
-        .catch(error => console.log(error));
+    try {
+        const {status, result} = await makeFetchRequest(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`,"POST",body);
+        if (status == 201) {
+            fetchSpotifyEmbed(track);
+        } else if (status == 401) {
+            await refreshAccessToken();
+            let title = sessionStorage.getItem("youtube_title");
+            extractTitle(title);
+        }
+    } catch (error) {
+        console.log(error);
+    }
   }
 
 async function retrievePlaylistId() {
@@ -51,13 +52,14 @@ async function checkPlaylist() {
             const { items } = result;
             for (const playlist of items) {
                 if (playlist.name == "Youtube To Spotify") {
-                    console.log("DEU VERDADEIRO E VOU SALVAR A PLAYLIST CORRETA");
                     localStorage.setItem("playlist_id", playlist.id);
                     return true;
                 }
             }
         } else if (status == 401) {
-            console.log("VALIDA O TOKEND E ACESSO");
+            await refreshAccessToken();
+            let title = sessionStorage.getItem("youtube_title");
+            extractTitle(title);
         }
     } catch (error) {
         console.log(error);
@@ -69,7 +71,6 @@ async function checkPlaylist() {
 async function createPlaylistId () {
 
     const flag = await checkPlaylist();
-    console.log("Check Flag For playlist id " + flag);
     if (!flag) {
         const body = {
             "name": "Youtube To Spotify",
@@ -78,47 +79,54 @@ async function createPlaylistId () {
         }
 
         try {
-            const { status, result } = await makeFetchRequest("https://api.spotify.com/v1/me/playlists");
+            const { status, result } = await makeFetchRequest("https://api.spotify.com/v1/me/playlists","POST",body);
             if (status == 201) {
-                console.log("Playlist id + " + result.id);
                 localStorage.setItem("playlist_id", result.id);
             } else if (status == 401) {
-                console.log("VALIDA O TOKEND E ACESSO");
+                await refreshAccessToken();
+                let title = sessionStorage.getItem("youtube_title");
+                extractTitle(title);
             }
         } catch (error) {
             console.log(error);
         }
-
-        makeFetchRequest("https://api.spotify.com/v1/me/playlists","POST",body)
-        .then(({status, result}) => {
-            //console.log(status + "criacoa dalaylist " + JSON.stringify(result));
-            if (status == 201) {
-                console.log("Playlist id + " + result.id);
-                localStorage.setItem("playlist_id", result.id);
-            } else if (status == 401) {
-                console.log("VALIDA O TOKEND E ACESSO");
-            }
-        })
-        .catch(error => console.log(error));
     }
 }
 
 
-function extractTitle(title) {
+async function extractTitle(title) {
     let regex = /[\/\(\)\-\?\,\.]/g;
     title = title.replaceAll(regex, "");
     title = title.replaceAll(" ","");
     console.log(title);
-    let url = `https://api.spotify.com/v1/search?q=${title}&type=track`;
+    sessionStorage.setItem("youtube_title", title);
+    fetchTrack(title);
+}
 
-    makeFetchRequest(url)
-        .then(({status, result}) => {
-            if (status == 200) {
-                const {items} = result.tracks;
-                addTrackToPlaylist(items[0])
-            } else if (status == 401) {
-                console.log("VALIDA O TOKEND E ACESSO");
-            }
-        })
-        .catch(error => console.log(error));
+async function fetchTrack(title) {
+    const url = `https://api.spotify.com/v1/search?q=${title}&type=track`;
+    try {
+        const {status, result} = await makeFetchRequest(url);
+        if (status == 200) {
+            const {items} = result.tracks;
+            addTrackToPlaylist(items[0])
+        } else if (status == 401) {
+            await refreshAccessToken();
+            let title = sessionStorage.getItem("youtube_title");
+            extractTitle(title);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function fetchSpotifyEmbed(track){
+    let tracksId = JSON.parse(localStorage.getItem("tracks_id"));
+    if (tracksId == null) {
+        tracksId = [track.id];
+    } else {
+        tracksId.unshift(track.id);
+    }
+    localStorage.setItem("tracks_id",JSON.stringify(tracksId));
+    loadIFrames();
 }
