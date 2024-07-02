@@ -5,15 +5,25 @@
   align-items: center;
   justify-content: center;
   padding-top: 15%;
-  
+  overflow: hidden;
 }
 
 .container > * {
   margin-top: 10px;
+} 
+
+.iframes-container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  margin-top: 20px;
 }
 
-.container :last-child {
-  margin-top: 20px;
+.iframes-container > * {
+  margin-top: 7.5px;
 }
 
 body {
@@ -86,19 +96,11 @@ body {
 
 h1 {
   font-family: 'Bebas Neue', cursive;
-  font-size: 10px;
+  font-size: 20px;
   position: absolute;
   left: 50%;
+  width: 250px;
   transform: translate(-50%,-50%);
   background-image: linear-gradient(greenyellow, greenyellow);
-  background-size: 100% 10px;
-  background-repeat: no-repeat;
-  background-position: 100% 0%;
-   transition: background-size .7s, background-position .5s ease-in-out;
-}
-
-h1:hover {
-  background-size: 100% 100%;
-  background-position: 0% 100%;
-  transition: background-position .7s, background-size .5s ease-in-out;
+  text-align: center;
 }

@@ -1,6 +1,4 @@
 async function makeFetchRequest(url, method = 'GET',  body = null, headers = null, redirect = 'follow') {
-    console.log(url);
-
     if (headers == null) {
       const accessToken = localStorage.getItem("access_token");
         headers = {
@@ -16,8 +14,12 @@ async function makeFetchRequest(url, method = 'GET',  body = null, headers = nul
     };
   
     if (body) {
-      requestOptions.body = JSON.stringify(body);
-    }
+      if (headers["Content-Type"] === "application/x-www-form-urlencoded") {
+          requestOptions.body = body; 
+      } else {
+          requestOptions.body = JSON.stringify(body);
+      }
+  }
   
     try {
       const response = await fetch(url, requestOptions);
@@ -31,3 +33,16 @@ async function makeFetchRequest(url, method = 'GET',  body = null, headers = nul
     }
   }
   
+
+function createSpotifyIFrame(trackId) {
+
+  const iframe = document.createElement('iframe');
+  iframe.setAttribute('src', `https://open.spotify.com/embed/track/${trackId}?utm_source=oembed`);
+  iframe.setAttribute('width', '100%');
+  iframe.setAttribute('height', '152');
+  iframe.setAttribute('frameborder', '0');
+  iframe.setAttribute('allowtransparency', 'true');
+  iframe.className = 'spotify-embed';
+
+  return iframe;
+}
