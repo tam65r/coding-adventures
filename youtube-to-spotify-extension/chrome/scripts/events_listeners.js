@@ -66,12 +66,12 @@ function deleteIFrames() {
 }
 
 function retrieveActiveTab() {
-    browser.tabs.query({ active: true, currentWindow: true })
+    chrome.tabs.query({ active: true, currentWindow: true })
                 .then(async (tabs) => {
                     const currentTab = tabs[0];
                     if (currentTab.url.startsWith("https://www.youtube.com/")) {
                         try {
-                            await browser.scripting.executeScript({
+                            await chrome.scripting.executeScript({
                                 target: {
                                   tabId: currentTab.id,
                                   allFrames: true,
@@ -86,16 +86,16 @@ function retrieveActiveTab() {
                 .catch(error => {
                     console.error("Error fetching current tab:", error);
                 });
-                browser.runtime.onMessage.addListener((message) => {
+                chrome.runtime.onMessage.addListener((message) => {
                     if (message.title) {
                         extractTitle(message.title);
                     }
-                    browser.runtime.onMessage.removeListener();
+                    chrome.runtime.onMessage.removeListener();
                 });
 }
 
 
-browser.tabs.onUpdated.addListener(onTabUpdated);
+chrome.tabs.onUpdated.addListener(onTabUpdated);
 
 function onTabUpdated(tabId, changeInfo, tab) {
     
@@ -103,7 +103,7 @@ function onTabUpdated(tabId, changeInfo, tab) {
     const refreshToken = localStorage.getItem("refresh_token");
 
     if (accessToken != null && refreshToken != null) {
-        browser.tabs.onUpdated.removeListener(onTabUpdated);
+        chrome.tabs.onUpdated.removeListener(onTabUpdated);
         return;
     }
 
@@ -112,8 +112,8 @@ function onTabUpdated(tabId, changeInfo, tab) {
         const urlParams = new URL(changeInfo.url).searchParams;
         const code = urlParams.get('code');
         fetchAcessToken(code);
-        browser.tabs.remove(tabId);
+        chrome.tabs.remove(tabId);
 
-        browser.tabs.onUpdated.removeListener(onTabUpdated);
+        chrome.tabs.onUpdated.removeListener(onTabUpdated);
     }
 }

@@ -35,8 +35,8 @@ function requestAuthorization() {
     let url = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURI(redirectUri)}&show_dialog=true`;
     url += "&scope=playlist-read-private playlist-read-collaborative playlist-modify-private playlist-modify-public user-library-modify user-library-read";
    
-    browser.tabs.create({ url, active: true });
-    browser.tabs.onUpdated.addListener(onTabUpdated);
+    chrome.tabs.create({ url, active: true });
+    chrome.tabs.onUpdated.addListener(onTabUpdated);
 }
 
 

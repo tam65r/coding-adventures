@@ -4,12 +4,7 @@
     "description": "This is an extension to automatically save a Youtube music to your Spotify",
     "manifest_version": 3,
     "background": {
-        "scripts": [
-        "scripts/oauth.js",
-        "scripts/api_calls.js",
-        "scripts/utils.js",
-        "scripts/events_listeners.js"
-        ]
+        "service_worker": "background.js"
     },
     "permissions": [
         "storage",

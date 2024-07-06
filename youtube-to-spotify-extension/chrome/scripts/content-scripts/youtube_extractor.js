@@ -20,7 +20,7 @@ function extractYouTubeVideoTitle() {
 }
 
 const searchQuery = extractYouTubeVideoTitle();
-browser.runtime.sendMessage({
+chrome.runtime.sendMessage({
     title: searchQuery
 });
 
