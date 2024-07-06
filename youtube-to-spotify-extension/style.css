@@ -4,13 +4,17 @@
   align-content: center;
   align-items: center;
   justify-content: center;
-  padding-top: 15%;
+  padding-top: 28%;
   overflow: hidden;
 }
 
 .container > * {
   margin-top: 10px;
 } 
+
+.container:last-child {
+  margin-bottom: 10px;
+}
 
 .iframes-container {
   display: flex;
@@ -20,10 +24,15 @@
   justify-content: center;
   overflow: auto;
   margin-top: 20px;
+  padding-top: 15px;
 }
 
 .iframes-container > * {
-  margin-top: 7.5px;
+  margin-top: 10px;
+}
+
+.iframes-container:first-child {
+  margin-top: 0px;
 }
 
 body {
@@ -33,74 +42,127 @@ body {
   background-color: rgb(86, 72, 105);
 }
 
-.button-56 {
-  align-items: center;
-  background-color: #32a885;
-  border: 2px solid #111;
-  border-radius: 8px;
-  box-sizing: border-box;
-  color: #111;
+.button-99 {
+  padding: 17px 40px;
+  border-radius: 50px;
   cursor: pointer;
+  border: 0;
+  background-color: white;
+  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 15px;
+  transition: all 0.5s ease;
+}
+
+.button-99:hover {
+  letter-spacing: 3px;
+  background-color: hsl(261deg 80% 48%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
+}
+
+.button-99:active {
+  letter-spacing: 3px;
+  background-color: hsl(261deg 80% 48%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+  transform: translateY(10px);
+  transition: 100ms;
+}
+
+.profile-dropdown {
   display: flex;
-  font-family: 'Bebas Neue', cursive;
-  font-weight: bold;
-  font-size: 16px;
-  height: 48px;
-  justify-content: center;
-  line-height: 24px;
-  max-width: 100%;
-  padding: 0 25px;
+  align-items: center;
+  background-color: #e0e0ff;
+  padding: 5px 10px;
+  border-radius: 25px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #4a148c;
+  cursor: pointer;
+}
+
+.profile-dropdown img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.profile-dropdown .name {
+  margin-right: 5px;
+}
+
+.profile-dropdown .dropdown-icon {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #4a148c;
+}
+
+.profile-dropdown:hover {
+  filter: brightness(90%);
+}
+
+.dropdown {
   position: relative;
-  text-align: center;
-  text-decoration: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
+  display: inline-block;
 }
 
-.button-56:after {
-  background-color: #111;
-  border-radius: 8px;
-  content: "";
-  display: block;
-  height: 48px;
-  left: 0;
-  width: 100%;
+.delete-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #4a148c;
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  transition-duration: .3s;
+  overflow: hidden;
+  position: relative;
+}
+
+.svgIcon {
+  width: 12px;
+  transition-duration: .3s;
+}
+
+.svgIcon path {
+  fill: white;
+}
+
+.delete-button:hover {
+  width: 140px;
+  border-radius: 50px;
+  transition-duration: .3s;
+  background-color: rgb(255, 69, 69);
+  align-items: center;
+}
+
+.delete-button:hover .svgIcon {
+  width: 50px;
+  transition-duration: .3s;
+  transform: translateY(60%);
+}
+
+.delete-button::before {
   position: absolute;
-  top: -2px;
-  transform: translate(8px, 8px);
-  transition: transform .2s ease-out;
-  z-index: -1;
+  top: -20px;
+  content: "Delete";
+  color: white;
+  transition-duration: .3s;
+  font-size: 2px;
 }
 
-.button-56:hover:after {
-  transform: translate(0, 0);
-}
-
-.button-56:active {
-  background-color: #3bbf98;
-  outline: 0;
-}
-
-.button-56:hover {
-  outline: 0;
-}
-
-@media (min-width: 768px) {
-  .button-56 {
-    padding: 0 40px;
-  }
-}
-
-
-
-h1 {
-  font-family: 'Bebas Neue', cursive;
-  font-size: 20px;
-  position: absolute;
-  left: 50%;
-  width: 250px;
-  transform: translate(-50%,-50%);
-  background-image: linear-gradient(greenyellow, greenyellow);
-  text-align: center;
+.delete-button:hover::before {
+  font-size: 13px;
+  opacity: 1;
+  transform: translateY(30px);
+  transition-duration: .3s;
 }
