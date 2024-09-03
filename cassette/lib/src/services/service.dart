@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
-import 'dart:convert';
 import '../constants/endpoints.dart';
 
 
-Future<Map<String, dynamic>> makeHttpRequest({required String url, String method = 'GET', Map<String, String>? headers, int statusCode = 200,  var body}) async {
-  url += '?api_key=$TMDb_API_KEY';
-  
-  headers ??= {
+Future<Map<String, dynamic>> makeHttpRequest({required String url, String method = 'GET', int statusCode = 200,  var body}) async {
+  //url += '?api_key=$TMDb_API_KEY';
+  print(url);
+  var headers = {
     'Content-Type': 'application/json',
+    'Authorization': 'Bearer $TMDb_BASE_URL'
   };
 
   try {

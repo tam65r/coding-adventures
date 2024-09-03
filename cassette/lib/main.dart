@@ -1,8 +1,8 @@
-import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers.dart';
 import 'src/screens/movie_screen.dart';
+import 'src/screens/movie_detail_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         title: 'Cassette',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 237, 200, 255)),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
         ),
         home: MyHomePage(),
       ),
@@ -43,13 +43,10 @@ class _MyHomePageState extends State<MyHomePage> {
     switch (selectedIndex) {
       case 0:
         page = Placeholder();
-        break;
       case 1:
-        page = Placeholder();
-        break;
+        page = MovieDetailScreen();
       case 2:
         page = MovieScreen();
-        break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
 }
@@ -67,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   label: Text('Home'),
                 ),
                 NavigationRailDestination(
-                  icon: Icon(Icons.favorite),
+                  icon: Icon(Icons.token),
                   label: Text('Favorites'),
                 ),
                 NavigationRailDestination(

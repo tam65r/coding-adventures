@@ -12,24 +12,17 @@ class MovieWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final style = theme.textTheme.displayMedium!.copyWith(
-      color: theme.colorScheme.onPrimary,
-    );
-    return Card(
-      color: theme.colorScheme.primary,
-      child: Column(
-        children: [
-          Image(
-              image: NetworkImage(retrieveImageUrl(
-                  imageId: movie.getPosterPath(), size: BackdropSizes.w300))),
 
-          Text(
-            movie.getTitle(),
-            style: style,
-          ),
-        ],
-      ),
+
+    if (movie.getPosterPath() == ' ') {
+      return Image(
+        image: AssetImage('assets/dragon.png'),
+      );
+    }
+
+    return Image(
+      image: NetworkImage(retrieveImageUrl(
+          imageId: movie.getPosterPath(), size: BackdropSizes.w300)),
     );
   }
 }

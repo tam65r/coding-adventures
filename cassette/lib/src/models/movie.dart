@@ -1,9 +1,6 @@
 import 'genre.dart';
 export 'genre.dart';
 
-import '../constants/endpoints.dart';
-
-
 class Movie {
   int _id;
   String _title;
