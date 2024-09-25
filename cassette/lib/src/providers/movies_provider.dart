@@ -28,7 +28,7 @@ class MovieState extends ChangeNotifier {
   }
 
   void resetPage() {
-    this.page = 0;
+    page = 0;
     notifyListeners();
   }
 }

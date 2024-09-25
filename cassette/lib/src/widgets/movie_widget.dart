@@ -14,11 +14,11 @@ class MovieWidget extends StatelessWidget {
   Widget build(BuildContext context) {
 
 
-    if (movie.getPosterPath() == ' ') {
-      return Image(
-        image: AssetImage('assets/dragon.png'),
-      );
-    }
+    //if (movie.getPosterPath() == ' ') {
+    //  return Image(
+    //    image: AssetImage('assets/dragon.png'),
+    //  );
+    //}
 
     return Image(
       image: NetworkImage(retrieveImageUrl(
